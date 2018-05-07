@@ -42,6 +42,9 @@ $ git add <file>
 $ git commit -m "description"
 ```
 `git add`可以反复多次使用，添加多个文件，`git commit`可以一次提交很多文件，`-m`后面输入的是本次提交的说明，可以输入任意内容。
+`git add -A`  提交所有变化  
+`git add -u`  提交被修改(modified)和被删除(deleted)文件，不包括新文件(new)  
+`git add .`  提交新文件(new)和被修改(modified)文件，不包括被删除(deleted)文件
 
 ### 查看工作区状态
 ```bash
