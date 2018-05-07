@@ -40,6 +40,7 @@ $ git init
 ```bash
 $ git add <file>
 $ git commit -m "description"
+$ git commit -A -m 'commit-all'
 ```
 `git add`可以反复多次使用，添加多个文件，`git commit`可以一次提交很多文件，`-m`后面输入的是本次提交的说明，可以输入任意内容。
 
