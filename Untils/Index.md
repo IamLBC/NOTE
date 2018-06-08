@@ -33,3 +33,37 @@ module.exports = {
 const getDaysDiffBetweenDates = (dateInitial, dateFinal) => (dateFinal - dateInitial) / (1000 * 3600 * 24);
 // getDaysDiffBetweenDates(new Date("2017-12-13"), new Date("2017-12-22")) -> 9
 ```
+```js
+// 关于下载二进制文件流
+// 下载请求参数对象
+let obj = { 
+  fileId: row.fileId,
+  fileName: row.fileName
+}
+// 转FormDate格式：
+let sendDate = ''
+Object.keys(obj).forEach((key,index)=>{
+  if (index + 1 === Object.keys(obj).length) {
+    sendDate += key + '=' + obj[key]
+  } else {
+    let temp = key + '=' + obj[key] + '&'
+    sendDate += temp
+  }
+})
+this.axios.post('url',sendDate,{
+  responseType: 'arraybuffer',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+}).then(res=>{
+  let name = res.headers['content-desposition'].split('=')[1]
+  let blob = new Blob([res.data], {type: 'application/vnd.ms-excel;charset-UTF-8'})
+  let objectUrl = URL.createObjectURL(blob)
+  let link = document.createElement('a')
+  link.href = objectUrl
+  link.download = decodeURI(name)
+  // window.location.href = objectUrl
+  // window.URL.revokeObjectURL(link.href)
+  link.click()
+}).catch(err => {})
+```
