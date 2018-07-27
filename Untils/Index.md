@@ -1,5 +1,4 @@
-
-==
+ 
 ```js
 // dd-MM-yyyy HH:mm:ss
 export const dateRules = (date) => {
@@ -34,7 +33,7 @@ const getDaysDiffBetweenDates = (dateInitial, dateFinal) => (dateFinal - dateIni
 // getDaysDiffBetweenDates(new Date("2017-12-13"), new Date("2017-12-22")) -> 9
 ```
 ```js
-// 下axios download file + response interceptors
+// axios download file + response interceptors
 import axios from 'axios'
 axios.interceptors.response.use(res=> {
   const download = res => {
