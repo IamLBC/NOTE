@@ -19,6 +19,8 @@
 
 `(x|y)`	查找任何以 | 分隔的选项,类似于 ||
 
+`( ) ` (1). 在被修饰匹配次数的时候，括号中的表达式可以作为整体被修饰 (2). 取匹配结果的时候，括号中的表达式匹配到的内容可以被单独得到
+
 元字符是拥有特殊含义的字符：
 
 `.`	查找单个字符,除了换行和行结束符。要匹配包括“\n”在内的任何字符，请使用像“(.|\n)”的模式。
@@ -104,6 +106,11 @@ RegExp 对象属性
 `source`	返回正则表达式的匹配模式
 
 ## 进阶
+[door1]: http://tool.oschina.net/uploads/apidocs/jquery/regexp.html
+[door2]: http://www.regexlab.com/zh/regref.htm
+[door3]: https://www.jb51.net/tools/zhengze.html
+[door1],[door2],[door2]
+
 `(pattern)`	匹配pattern并获取这一匹配。所获取的匹配可以从产生的Matches集合得到，在VBScript中使用SubMatches集合，在JScript中则使用$0…$9属性。要匹配圆括号字符，请使用“\(”或“\)”。
 
 `(?:pattern)`	匹配pattern但不获取匹配结果，也就是说这是一个非获取匹配，不进行存储供以后使用。这在使用或字符“(|)”来组合一个模式的各个部分是很有用。例如“industr(?:y|ies)”就是一个比“industry|industries”更简略的表达式。
@@ -111,3 +118,7 @@ RegExp 对象属性
 `(?=pattern)`	正向肯定预查，在任何匹配pattern的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如，“Windows(?=95|98|NT|2000)”能匹配“Windows2000”中的“Windows”，但不能匹配“Windows3.1”中的“Windows”。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始。
 
 `(?!pattern)`	正向否定预查，在任何不匹配pattern的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如“Windows(?!95|98|NT|2000)”能匹配“Windows3.1”中的“Windows”，但不能匹配“Windows2000”中的“Windows”。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始
+
+`(?<=pattern)` 反向肯定预查，与正向肯定预查类拟，只是方向相反。例如，“(?<=95|98|NT|2000)Windows”能匹配“2000Windows”中的“Windows”，但不能匹配“3.1Windows”中的“Windows”。
+
+`(?<!pattern)` 反向否定预查，与正向否定预查类拟，只是方向相反。例如"(?<!95|98|NT|2000)Windows”能匹配“3.1Windows”中的“Windows”，但不能匹配“2000Windows”中的“Windows"。
