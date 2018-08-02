@@ -106,8 +106,10 @@ export function exportFile(url, obj) {
   })
 }
 ```
+[运算]: http://www.css88.com/archives/7340
+[运算]
 ```js
-// +
+// + 
 function accAdd(arg1, arg2) {
   var r1, r2, m, c;
   try {

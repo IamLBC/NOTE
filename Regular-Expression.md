@@ -1,8 +1,8 @@
-## 语法： 
+# 语法： 
 
 /正则表达式主体/修饰符(可选)
 
-## 修饰符：
+# 修饰符：
 
 `i`	执行对大小写不敏感的匹配。
 
@@ -10,7 +10,7 @@
 
 `m`	执行多行匹配。
 
-## 正则表达式模式
+# 正则表达式模式
 方括号用于查找某个范围内的字符：
 
 `[abc]`	查找方括号之间的任何字符。
@@ -105,7 +105,7 @@ RegExp 对象属性
 
 `source`	返回正则表达式的匹配模式
 
-## 进阶
+# 进阶
 [door1]: http://tool.oschina.net/uploads/apidocs/jquery/regexp.html
 [door2]: http://www.regexlab.com/zh/regref.htm
 [door3]: https://www.jb51.net/tools/zhengze.html
