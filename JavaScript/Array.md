@@ -16,7 +16,7 @@ const arrayConcat = (arr, ...args) => arr.concat(...args);
 ```js
 1. const difference = (a, b) => { 
     const s = new Set(b)
-    return a.filter(x => { !s.has(x)})
+    return a.filter(x => !s.has(x))
    }
    // difference([1,2,3], [1,2]) -> [3]
 
