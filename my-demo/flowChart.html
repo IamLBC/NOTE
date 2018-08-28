@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>flowchart.js · Playground</title>
+    <style type="text/css">
+      .end-element { background-color : #FFCCFF; }
+      #canvas {
+        width: 400px;
+      }
+    </style>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.0/raphael-min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://flowchart.js.org/flowchart-latest.js"></script>
+    <!-- <script src="../release/flowchart.min.js"></script> -->
+    <script>
+      window.onload = function () {
+        var btn = document.getElementById("run"),
+          cd = document.getElementById("code"),
+          chart;
+        (btn.onclick = function () {
+          var code = cd.value;
+          if (chart) {
+            chart.clean();
+          }
+          chart = flowchart.parse(code);
+          chart.drawSVG('canvas', {
+            // 'x': 30,
+            // 'y': 50,
+            'line-width': 3,
+            'maxWidth': 3,//ensures the flowcharts fits within a certian width
+            'line-length': 50,
+            'text-margin': 10,
+            'font-size': 14,
+            'font': 'normal',
+            'font-family': 'Helvetica',
+            'font-weight': 'normal',
+            'font-color': 'black',
+            'line-color': 'black',
+            'element-color': 'black',
+            'fill': 'white',
+            'yes-text': 'y',
+            'no-text': 'n',
+            'arrow-end': 'block',
+            'scale': 1,
+            'symbols': {
+              'start': {
+                'font-color': 'black',
+                'element-color': 'black',
+                'fill': 'red'
+              },
+              'end':{
+                'class': 'end-element'
+              }
+            },
+            'flowstate' : {
+              'start' : { 'fill' : 'green', 'font-size' : 18},
+              'end' : { 'fill' : 'red', 'font-size' : 18},
+              'current' : {'fill' : 'yellow', 'font-color' : 'red', 'font-weight' : 'bold'},
+              'future' : { 'fill' : '#FFFF99'},
+              'request' : { 'fill' : 'blue'},
+              'invalid': {'fill' : '#444444'},
+              'approved' : { 'fill' : '#58C4A3', 'font-size' : 12, 'yes-text' : 'APPROVED', 'no-text' : 'n/a' },
+              'rejected' : { 'fill' : '#C45879', 'font-size' : 12, 'yes-text' : 'n/a', 'no-text' : 'REJECTED' }
+            }
+          });
+          $('[id^=sub1]').click(function(){
+            alert('info here');
+          });
+          $('#test').click(function () {
+            console.log("000")
+          })
+        })();
+      };
+    </script>
+  </head>
+  <body>
+    <div>
+      <textarea id="code" style="width: 100%;" rows="11">
+        st=>start: 开始回访|start
+        e=>end: 挂机|end
+        op1=>condition: 问题1
+        op2=>condition: 问题2
+        op3=>condition: 问题3
+        op4=>operation: 问题4
+        op5=>operation: 问题5
+        op6=>operation: 问题6
+
+        st->op1
+        op1(yes, bottom)->op2(yes, bottom)->op4->op6->e
+        op1(no, right)->op6->e
+
+        op2(no, right)->op5->op6
+        op2(ys, left)->op3->op6
+
+      </textarea>
+    </div>
+    <div><button id="run" type="button">Run</button><button id="test" type="button">test</button></div>
+    <div id="canvas"></div>
+  </body>
+</html>

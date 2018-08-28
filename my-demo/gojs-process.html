@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>gojs-process-demo</title>
+    <style type="text/css">
+    </style>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.7.15/go-debug.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.8.27/go.js"></script>
+  </head>
+  <body>
+      <div id="myDiagramDiv" style="float:left;width:800px; height:500px; background-color: #DAE4E4;"></div>
+      <button id="change" type="button" onclick="makeSVG('black')">svg</button>
+      <button id="change" type="button" onclick="change()">change</button>
+      <div id="SVGArea" style="background: red;width: 500px;height: 500px;overflow: auto;"></div>
+      <script>
+        function change () {
+          makeSVG("pink")
+        }
+        function makeSVG(color) {
+          myDiagram.model = new go.GraphLinksModel(
+          [
+            { key: "0", name: "开始访问", color: "red" },
+            { key: "1", name: "问题1", color: "orange" },
+            { key: "2", name: "问题2", color: "lightgreen" },
+            { key: "3", name: "问题3", color: "pink" },
+            { key: "4", name: "问题4", color: "pink" },
+            { key: "5", name: "问题5", linecolor: "pink" },
+            { key: "6", name: "问题6", color: "pink" },
+            { key: "7", name: "挂机", color: "pink" }
+          ],
+          [
+            { from: "0", to: "1", linecolor: color },
+            { from: "1", to: "2", linecolor: color },
+            { from: "2", to: "3" },
+            { from: "2", to: "4", linecolor: color },
+            { from: "2", to: "5"},
+            { from: "3", to: "6" }, { from: "5", to: "6"},{ from: "4", to: "6",linecolor: color },
+            { from: "6", to: "7",linecolor: color }
+          ]);
+          var svg = myDiagram.makeSvg({
+              scale: 1
+            });
+          svg.style.border = "1px solid black";
+          obj = document.getElementById("SVGArea");
+          obj.appendChild(svg);
+          if (obj.children.length > 0) {
+            obj.replaceChild(svg, obj.children[0]);
+          }
+        }
+        var $ = go.GraphObject.make;
+        var myDiagram =
+          $(go.Diagram, "myDiagramDiv",
+            {
+              initialContentAlignment: go.Spot.Center, // center Diagram contents
+              "undoManager.isEnabled": true, // enable Ctrl-Z to undo and Ctrl-Y to redo
+              layout: $(go.TreeLayout, // 1个特殊的树形排列 Diagram.layout布局
+                { angle: 90, layerSpacing: 35 })
+            });
+
+        // 我们早先定义的节点模板
+        // myDiagram.nodeTemplate =
+        //   $(go.Node, 
+        //     "Auto",
+        //     { background: "#44CCFF" }, 
+        //     new go.Binding("fill", "color"),
+        //     // $(go.Picture, { margin: 10, width: 50, height: 50, background: "blue" }, new go.Binding("source")),
+        //     $(go.TextBlock, "Default Text", { margin: 12, stroke: "white", font: "bold 16px sans-serif" }, new go.Binding("text", "name"))
+        //   );
+        
+
+        myDiagram.nodeTemplate =
+        $(go.Node, "Auto",new go.Binding("position", "position"),  // the Shape will go around the TextBlock
+          $(go.Shape, "RoundedRectangle", { strokeWidth: 0, fill: "white"},
+            // Shape.fill is bound to Node.data.color
+            new go.Binding("fill", "color")),
+            $(go.TextBlock,
+          { font: "700 12px Droid Serif, sans-serif",
+            textAlign: "left",
+            margin: 5, maxSize: new go.Size(100, 100) }, // 设置固定大小，可以设置第二个参数为NaN则宽带固定，根据内容延伸高度
+          new go.Binding("text", "name"))
+        );
+
+
+        myDiagram.linkTemplate =
+          $(go.Link, { routing: go.Link.Orthogonal, corner: 0 },
+            $(go.Shape, { strokeWidth: 1, stroke: "yellow" }, new go.Binding("stroke", "linecolor")),
+            $(go.Shape, { toArrow: "Standard", fill: 'blank', stroke: "blue" })
+          ); 
+            
+
+        var model = $(go.TreeModel);
+        model.nodeDataArray =
+        [ // 必须有"key"和"parent"的字段名,
+          // 你还可以添加任何需要的其他字段
+          { key: "1",              name: "开始访问",   source: "cat1.png" },
+          { key: "2", parent: "1", name: "问题1",    source: "cat2.png" },
+          { key: "3", parent: "2", name: "问题2",   source: "cat3.png" },
+          { key: "4", parent: "3", name: "问题3", source: "cat4.png" },
+          { key: "5", parent: "3", name: "问题4", source: "cat4.png" },
+          { key: "6", parent: "3", name: "问题5", source: "cat4.png" },
+          { key: "7", parent: "4 5 6", name: "问题6", source: "cat4.png" }
+        ];
+        // myDiagram.model = model;
+        myDiagram.model = new go.GraphLinksModel(
+    [
+      { key: "0", name: "开始访问", color: "red", position: new go.Point(100, 100) },
+      { key: "1", name: "问题1", color: "orange", position: new go.Point(100, 200) },
+      { key: "2", name: "问题2", color: "lightgreen", position: new go.Point(100, 300) },
+      { key: "3", name: "问题3", color: "pink", position: new go.Point(100, 400) },
+      { key: "4", name: "问题4", color: "pink", position: new go.Point(100, 500) },
+      { key: "5", name: "问题5", linecolor: "pink", position: new go.Point(100, 600) },
+      { key: "6", name: "问题6", color: "pink", position: new go.Point(100, 700) },
+      { key: "7", name: "挂机", color: "pink", position: new go.Point(100, 800) }
+    ],
+    [
+      { from: "0", to: "1", curviness: 60 },
+      { from: "1", to: "2", curviness: 60 },
+      { from: "2", to: "3", curviness: 60 },
+      { from: "2", to: "4", curviness: 60 },
+      { from: "2", to: "5", curviness: 60 },
+      { from: "3", to: "6", curviness: 60 }, { from: "4", to: "6", curviness: 60 }, { from: "5", to: "6", curviness: 60 },
+      { from: "6", to: "7", curviness: 60 }
+    ]);
+
+    
+       </script>
+  </body>
+</html>

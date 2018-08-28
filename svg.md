@@ -18,7 +18,7 @@
 
 如果只想展示 SVG 图像的一部分，就要指定viewBox属性。
 ```html
-<svg width="100" height="100" viewBox="50 50 50 50">
+<svg width="100" height="100" viewBox="50 50 50 50" preserveAspectRatio="xMidYMid meet">
   <circle id="mycircle" cx="50" cy="50" r="50" />
 </svg>
 ```
@@ -28,6 +28,14 @@
 
 如果不指定width属性和height属性，只指定viewBox属性，则相当于只给定 SVG 图像的长宽比。这时，SVG 图像的默认大小将等于所在的 HTML 元素的大小。
 
+`preserveAspectRatio` x和y表示对齐的轴线，min,mid,max表示对齐的方式。min是往坐标小的方向对齐；mid居中对齐；max是往坐标大的方向对齐
+
+第二个参数有两个值可选：meet和slice
+`meet`就是前面那种自动调整viewBox到可以在svg画布中完全展示。非常类似css里`background-size:contain`
+而`slice`是自动调整viewBox到撑满整个svg画布。非常类似`background-size:cover`
+
+preserveAspectRatio还有个单独使用的参数："none"。
+这种时候viewBox会被拉伸到和svg画布相同尺寸，而内部的所有svg元素也会被等比拉伸，而不是维持原有比例。
 * `<circle>`圆形。
   
   
@@ -85,7 +93,7 @@
   </svg>
   ```
 
-* <path>绘制路径。
+* `<path>`绘制路径。
   ```html
   <svg width="300" height="180">
     <path d="
@@ -116,7 +124,7 @@
 
   </svg>
   ```
-  x属性和y属性，表示文本区块基线（baseline）起点的横坐标和纵坐标。文字的样式可以用class或style属性指定。
+  x属性和y属性，表示文本区块基线（baseline 字下面的线）起点的横坐标和纵坐标。文字的样式可以用class或style属性指定。
 
 * `<use>`复制一个形状。
   ```html
@@ -151,7 +159,7 @@
   </svg>
   ```
 
-* `<defs>`标签用于自定义形状，它内部的代码不会显示，仅供引用。
+* `<defs>`标签用于自定义形状，它内部的代码不会显示，仅供引用。相当于是具有隐形功能的外套
   ```html
   <svg width="300" height="100">
 
@@ -275,7 +283,7 @@
 
   <circle id="mycircle" cx="400" cy="300" r="50" />
 
-<svg>
+</svg>
 ```
 上面代码插入网页之后，就可以用 CSS 定制样式。
 ```css
