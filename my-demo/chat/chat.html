@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>chat-demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background: url(./img/bg.png) no-repeat 100% 100%;
+      background-size: cover;
+    }
+
+    .box {
+      height: 100%;
+      border-radius: 4px;
+    }
+
+    .fl {
+      display: inline-block;
+      width: 70%;
+      float: left;
+      height: 100%;
+      overflow-y: auto;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .bgTitle,
+    .UserBg {
+      width: 100%;
+      height: 55px;
+      background: url(./img/topTitle.png) no-repeat center;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .UserBg {
+      background: url(./img/titleBg.png) no-repeat center;
+    }
+
+    .fr {
+      display: inline-block;
+      width: 30%;
+      height: 100%;
+      float: left;
+      /*background-color: #92D169;*/
+      position: relative;
+    }
+
+    /*对话开始*/
+    .chat {
+      height: calc(100vh - 126px);
+      width: calc(30% - 50px);
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: rgba(87, 91, 151);
+      border: 3px solid rgba(158, 192, 249);
+      padding: 15px;
+    }
+
+    .chat ul {
+      list-style-type: none;
+      height: 100%;
+      overflow: auto;
+      margin: 0;
+      padding-right: 13px;
+    }
+
+    .chat ul li {
+      overflow: hidden;
+    }
+
+    .chat ul li .content {
+      max-width: 50%;
+      width: auto;
+      border-radius: 8px;
+      margin: 25px;
+      position: relative;
+    }
+
+    .chat ul li .content:not(.last) {
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .chat ul li .content.user {
+      color: white;
+      background: rgba(80, 124, 201);
+      float: left;
+    }
+
+    .chat ul li .content.robot {
+      background: rgba(149, 209, 105);
+      float: right;
+    }
+
+    .chat ul li .content.last {
+      position: relative;
+      border: 0px solid transparent;
+      border-radius: 8px;
+      /*box-shadow: 2px 2px 16px rgba(0,0,0,0.5);*/
+    }
+
+    .chat ul li .content.last:after {
+      position: absolute;
+      top: -7px;
+      bottom: -7px;
+      left: -7px;
+      right: -7px;
+      background: linear-gradient(170deg, rgba(0, 164, 255), rgba(0, 164, 255), white, rgba(0, 164, 255), rgba(0, 164, 255));
+      content: '';
+      z-index: -1;
+      border-radius: 8px;
+    }
+
+    .chat ul li .content img {
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      position: absolute;
+      top: -25px;
+      border: 0;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .chat ul li .content.user img {
+      left: -25px;
+    }
+
+    .chat ul li .content.robot img {
+      right: -23px;
+    }
+
+    .chat ul li .content .message {
+      margin: 20px;
+      white-space: normal;
+      word-break: break-all;
+      word-wrap: break-word;
+    }
+
+    .chat ul li .content.user .transform {
+      background: rgba(45, 45, 45, .8);
+      margin: 4px;
+      box-shadow: inset 0px 0px 20px black;
+      padding: 20px;
+    }
+
+    .chat ul li .content.user .transform p {
+      color: rgba(71, 105, 163);
+    }
+
+    .chat ul::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+      border-radius: 10px;
+    }
+
+    .chat ul::-webkit-scrollbar-track {
+      -webkit-border-radius: 10px;
+      background-image: -webkit-linear-gradient(0deg, transparent 30%, black, rgba(87, 132, 240), transparent 60%, transparent);
+    }
+
+    .chat ul::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+      background-color: rgba(87, 132, 200);
+    }
+
+    /*对话结束*/
+  </style>
+  <script>
+    var data = [{
+      type: "user",
+      message: "如果我和你妈要是掉河里了，你先救谁？",
+      transform: "如果我和你妈要是掉河里了，你先救谁？"
+    }, {
+      type: "robot",
+      message: "掉那条河里了？"
+    }, {
+      type: "user",
+      message: "我也不知道哪条河。",
+      transform: "我也不知道哪条河。"
+    }, {
+      type: "robot",
+      message: "不知道不行啊，你得告诉我你们掉哪条河里了，我才能救你们呀，对不对！"
+    }, {
+      type: "user",
+      message: "我是说如果要是掉河里了！",
+      transform: "我是说如果要是掉河里了！"
+    }, {
+      type: "robot",
+      message: "如果掉进河里了跟我有什么关系，我又不认识如果。"
+    }, {
+      type: "user",
+      message: "不是，我是说假如。",
+      transform: "不是，我是说假如。"
+    }, {
+      type: "robot",
+      message: "那假如我也不认识啊！"
+    }, {
+      type: "user",
+      message: "不是我就是打个比方。",
+      transform: "不是我就是打个比方。"
+    }, {
+      type: "robot",
+      message: "那比方我认识，比方是我朋友，可你为什么要打他呢？你为什么这么粗鲁。"
+    }, {
+      type: "user",
+      message: "路上看到解放路上看到解放路上的空间发老师的开房记录山东矿机",
+      transform: "..."
+    }]
+
+    var messageNum = 0
+
+    var addChat = function (data) {
+      var user = `<li>
+                    <div class="content user last">
+                      <img src="robot.jpeg">
+                      <div class="message">${data.message}</div>
+                      <div class="transform">
+                        <p>智能转义:</p>${data.transform}
+                      </div>
+                    </div>
+                  </li>`
+      var robot = `<li>
+                    <div class="content robot">
+                      <img src="user.jpeg">
+                      <div class="message">${data.message}</div>
+                    </div>
+                  </li>`
+      return data.type === "user" ? user : robot
+    }
+
+    window.onload = function () {
+      var target = document.getElementById("target")
+
+      var loop = setInterval(function () {
+        if (messageNum === data.length) {
+          clearInterval(loop)
+        } else {
+          var d = document.getElementsByClassName('content')
+          for (var i = 0; i < d.length; i++) {
+            d[i].classList.remove("last")
+          }
+          target.innerHTML += addChat(data[messageNum])
+          target.scrollTop = target.scrollHeight - document.documentElement.clientHeight + 156
+          messageNum += 1
+        }
+      }, 2000)
+    }
+  </script>
+</head>
+
+<body>
+  <div class="box">
+    <div class="fl">
+      <div class="bgTitle"></div>
+    </div>
+    <div class="fr">
+      <div class="UserBg"></div>
+      <div class="chat">
+        <ul id="target">
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
