@@ -16,7 +16,7 @@
     body {
       width: 100%;
       height: 100%;
-      background: url(bg.jpg) no-repeat 100% 100%;
+      background: url(../resource/bg.jpg) no-repeat 100% 100%;
       background-size: cover;
     }
 
@@ -226,7 +226,7 @@
     var addChat = function (data) {
       var user = `<li>
                     <div class="content user last">
-                      <img src="robot.jpeg">
+                      <img src="../resource/robot.jpeg">
                       <div class="message">${data.message}</div>
                       <div class="transform">
                         <p>智能转义:</p>${data.transform}
@@ -235,7 +235,7 @@
                   </li>`
       var robot = `<li>
                     <div class="content robot">
-                      <img src="user.jpeg">
+                      <img src="../resource/user.jpeg">
                       <div class="message">${data.message}</div>
                     </div>
                   </li>`
