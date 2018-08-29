@@ -5,6 +5,7 @@ export const dateRules = (date) => {
     return date.toLocaleString("en-US", { hour12: false }).replace(/\b\d\b/g, '0$&').replace(new RegExp('/', 'gm'), '-')
 }
 ```
+
 ```js
 // yyyy-MM-dd HH:mm:ss
 const formatTime = date => {
@@ -27,11 +28,13 @@ module.exports = {
   formatTime: formatTime
 }
 ```
+
 ```js
 // 计算两个日期的差距
 const getDaysDiffBetweenDates = (dateInitial, dateFinal) => (dateFinal - dateInitial) / (1000 * 3600 * 24);
 // getDaysDiffBetweenDates(new Date("2017-12-13"), new Date("2017-12-22")) -> 9
 ```
+
 ```js
 // axios download file + response interceptors
 import axios from 'axios'
@@ -106,6 +109,7 @@ export function exportFile(url, obj) {
   })
 }
 ```
+
 [运算]: http://www.css88.com/archives/7340
 [运算]
 ```js
@@ -207,5 +211,5 @@ function accDiv(arg1, arg2) {
 }
 ```
 ```js
-let reg = /^ \-? (?!0+(?:\.0+)?$) (?:[1-9]\d*|0) (?:\.\d{1,2})? $/ //小数点后最多保留两位,可以是负数
+let reg = /^ \-? (?!0+(?:\.0+)?$) (?:[1-9]\d*|0) (?:\.\d{1,2})? $/ //小数点后最多保留两位,可以是负数 正则
 ```
