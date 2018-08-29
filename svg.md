@@ -1,5 +1,7 @@
 * [test](#语法)
 
+[door][door1]
+
 [door1]:https://mp.weixin.qq.com/s?__biz=MzAxODE2MjM1MA==&mid=2651554709&idx=1&sn=9502cdd2aa4aa2ed4d4e66cf397babb5&chksm=80255454b752dd424f0077a8d001b6dd9ac37f1a22b437918cd90f2a5c342f330eb9ea2a923e&mpshare=1&scene=24&srcid=0815p1yUEpEYKJpQkVKXwRF5#rd
 
 
@@ -206,6 +208,7 @@ preserveAspectRatio还有个单独使用的参数："none"。
 
   </svg>
   ```
+![repeat](https://github.com/IamLBC/NOTE/raw/master/resource/repeat.png)
 
   上面代码中，<pattern>标签将一个圆形定义为dots模式。patternUnits="userSpaceOnUse"表示<pattern>的宽度和长度是实际的像素值。然后，指定这个模式去填充下面的矩形。
 
