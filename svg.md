@@ -7,18 +7,37 @@
 
 
 # overview
+* SMIL是什么？
+  SMIL不是指「水蜜梨」，而是Synchronized Multimedia Integration Language（同步多媒体集成语言）的首字母缩写简称，是有标准的。VG动画就是基于这种语言。
+
+  SMIL允许你做下面这些事情：
+
+  动画元素的数值属性（X, Y, …）
+
+  动画属性变换（平移或旋转）
+
+  动画颜色属性
+
+  沿着运动路径运动
+  
+  注意到“沿着运动路径运动”这一条没？前面的三条CSS3都是可以有所担当的，最后这一条，呵呵，CSS3只能蹲在墙角画圈圈了！
+
 * SVG 文件可以直接插入网页，成为 DOM 的一部分，然后用 JavaScript 和 CSS 进行操作。
+
 * SVG 代码也可以写在一个独立文件中，然后用`<img>`、`<object>`、`<embed>`、`<iframe>`等标签插入网页。
+
 * CSS 也可以使用 SVG 文件。
 ```css
 .logo {
   background: url(icon.svg);
 }
 ```
+
 * SVG 文件还可以转为 BASE64 编码，然后作为 Data URI 写入网页。
 ```html
 <img src="data:image/svg+xml;base64,[data]">
 ```
+
 # 语法
 `<svg>`的width属性和height属性，指定了 SVG 图像在 HTML 元素中所占据的宽度和高度。除了相对单位，也可以采用绝对单位（单位：像素）。如果不指定这两个属性，SVG 图像默认大小是300像素（宽） x 150像素（高）。
 
@@ -257,6 +276,7 @@ preserveAspectRatio还有个单独使用的参数："none"。
   ```
 
 * `<animateTransform>`标签
+
   `<animate>`标签对 CSS 的transform属性不起作用，如果需要变形，就要使用`<animateTransform>`标签。
   ```html
   <svg width="500px" height="500px">
