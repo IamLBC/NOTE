@@ -12,6 +12,7 @@
 set意思设置，此元素没有动画效果。虽然set虽然不能触发连续的动画，但是，其还是可以实现基本的延迟功能。就是指：可以在特定时间之后修改某个属性值（也可以是CSS属性值）。
 
 举个例子，下面这个「马」会在3秒之后从横坐标160的位置移动60这个位置。闪现过去
+```html
 <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg">
   <g> 
     <text font-family="microsoft yahei" font-size="120" y="160" x="160">
@@ -20,11 +21,13 @@ set意思设置，此元素没有动画效果。虽然set虽然不能触发连�
     </text>
   </g>
 </svg>
+```
 
 ## animation
 基础动画元素。实现单属性的动画过渡效果。类似Snap.svg的animate()方法支持的动画效果。
 
 把马儿平移：
+```html
 <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg">
   <g> 
     <text font-family="microsoft yahei" font-size="120" y="160" x="160">
@@ -33,6 +36,7 @@ set意思设置，此元素没有动画效果。虽然set虽然不能触发连�
     </text>
   </g>
 </svg>
+```
 
 ##  animateColor
 一看就知道是颜色动画。不过，animate可以实现其功能与效果，因此，此属性已经被废弃。
@@ -41,40 +45,46 @@ set意思设置，此元素没有动画效果。虽然set虽然不能触发连�
 一看就知道实现transform变换动画效果的。知识是一脉相承的，这里的transform变换与CSS3的transform变换，以及Snap.svg.js中的transform()方法都是一个路数。
 
 马儿变大：
+```html
 <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg">
   <g> 
     <text font-family="microsoft yahei" font-size="80" y="100" x="100">马</text>
     <animateTransform attributeName="transform" begin="0s" dur="3s"  type="scale" from="1" to="1.5" repeatCount="indefinite"/>
   </g>
 </svg>
+```
 
 ## animateMotion
 animateMotion元素可以让SVG各种图形沿着特定的path路径运动~
-
+```html
 <svg width="360" height="200" xmlns="http://www.w3.org/2000/svg">
   <text font-family="microsoft yahei" font-size="40" x="0" y="0" fill="#cd0000">马
     <animateMotion path="M10,80 q100,120 120,20 q140,-50 160,0" begin="0s" dur="3s" repeatCount="indefinite"/>
   </text>
   <path d="M10,80 q100,120 120,20 q140,-50 160,0" stroke="#cd0000" stroke-width="2" fill="none" />
 </svg>
+```
 
 让马儿跑的真实一点：
+```html
 <svg width="360" height="200" xmlns="http://www.w3.org/2000/svg">
   <text font-family="microsoft yahei" font-size="40" x="0" y="0" fill="#cd0000">马
     <animateMotion path="M10,80 q100,120 120,20 q140,-50 160,0" begin="0s" dur="3s" rotate="auto" repeatCount="indefinite"/>
   </text>
   <path d="M10,80 q100,120 120,20 q140,-50 160,0" stroke="#cd0000" stroke-width="2" fill="none" />
 </svg>
+```
 
 ## 自由组合
 实际制作时候的动画，不可能总是一个属性修改。比方说，位置和透明度同时变化，怎么办呢？So easy! 直接组合就好了。
-
+```html
 <svg width="320" height="200" xmlns="http://www.w3.org/2000/svg">
     <text font-family="microsoft yahei" font-size="120" y="160" x="160">马
         <animate attributeName="x" from="160" to="60" begin="0s" dur="3s" repeatCount="indefinite" />
         <animate attributeName="opacity" from="1" to="0" begin="0s" dur="3s" repeatCount="indefinite" />
     </text>
 </svg>
+```
 
 # 参数详解
 
@@ -110,13 +120,14 @@ animateMotion元素可以让SVG各种图形沿着特定的path路径运动~
 > 如果to,by,values都没设置，自然没动画效果。如果任意（包括from）一个属性的值不合法，规范上说是没有动画效果。但是，据我测试，FireFox浏览器确实如此，但是Chrome特意做了写容错处理。例如，本来是数值的属性，写了个诸如a这个不合法的值，其会当作0来处理，动画效果依然存在。
 
 > values一个值的时候是没有动画效果。多值时候有动画效果。当values值设置并能识别时候，from, to, by的值都会被忽略。实际上有3个动画关键点。而from, to/by只能驾驭两个；例如下面这个聪明的马儿来回跑的效果
-
+```html
 <svg width="320" height="200" xmlns="http://www.w3.org/2000/svg">
     <text font-family="microsoft yahei" font-size="120" y="150" x="160">
         马
         <animate attributeName="x" values="160;40;160" dur="3s" repeatCount="indefinite" />
     </text>
 </svg>
+```
 
 有 from-to动画、from-by动画、to动画、by动画、values动画 几种情况
 
@@ -134,39 +145,46 @@ beigin="3s" 也可以简写成 begin="3"
 - syncbase-value 基于同步确定的值 [元素的id].begin/end +/- 时间值
 
   为一个animation定一个id，另一个动画在上一个动画结束时开始，也可以有一些偏移值，begin="x.end-1s"
+  ```html
   <svg width="320" height="200" xmlns="http://www.w3.org/2000/svg">
       <text font-family="microsoft yahei" font-size="120" y="160" x="160">马
           <animate id="x" attributeName="x" to="60" begin="0s" dur="3s" fill="freeze" />
           <animate attributeName="y" to="100" begin="x.end" dur="3s" fill="freeze" />
       </text>
   </svg>
+  ```
 
 - event-value 事件值，这类事件需要内联在页面中,否则无效 [元素的id].[事件类型] +/- 时间
 
   通过一个元素的事件触发动画开始，可以加偏移值 begin="circle.click+2s，
+  ```html
   <svg id="svg" width="320" height="200" xmlns="http://www.w3.org/2000/svg">
       <circle id="circle" cx="100" cy="100" r="50"></circle>
       <text font-family="microsoft yahei" font-size="120" y="160" x="160">马
           <animate attributeName="x" to="60" begin="circle.click" dur="3s" />
       </text>
   </svg>
+  ```
 
 - repeat-value 重复多少次后干什么, [元素的id].repeat(整数) +/- 时间
+```html
   <svg width="320" height="200" xmlns="http://www.w3.org/2000/svg">
     <text font-family="microsoft yahei" font-size="120" y="160" x="160">马
         <animate id="x" attributeName="x" to="60" begin="0s" dur="3s" repeatCount="indefinite" />
         <animate attributeName="y" to="100" begin="x.repeat(2)" dur="3s" fill="freeze" />
     </text>
   </svg>
+  ```
 
 - accessKey-value 定义快捷键,按下某个按键后动画开始, accessKey(" character "). character表示快捷键所在的字符，举个例子，按下s键动画走起
-
+  ```html
   <svg width="320" height="200" xmlns="http://www.w3.org/2000/svg">
       <text font-family="microsoft yahei" font-size="120" y="160" x="160">马
           <animate attributeName="x" to="60" begin="accessKey(s)" dur="3s" repeatCount="indefinite" />
       </text>
   </svg>
-
+  ```
+  
 - "indefinite" 无限等待,需要beginElement()来触发动画开始 或 指向该动画元素的超链接(SVG中的a元素)
   ```html
   <svg id="svg" width="320" height="200" xmlns="http://www.w3.org/2000/svg">
