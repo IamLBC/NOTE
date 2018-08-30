@@ -1,6 +1,8 @@
 [door]:https://www.zhangxinxu.com/wordpress/2014/08/so-powerful-svg-smil-animation/
 [door]
+- stroke-dasharray: 一组用逗号分割的数字组成的序列,第一个用来表示实线，第二个用来表示空白,如果只有一个数字5，则表示会先画5px实线，紧接着是5px空白，然后又是5px实线，从而形成虚线
 
+- stroke-dashoffset: 表示路径从开始位置的偏移量,路径的偏移是从左边的原点开始的
 # 五大元素
 * `<set>`
 * `<animate>`

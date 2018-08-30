@@ -17,40 +17,60 @@
     svg {
       background: lightcoral;
     }
-    .red {
-      fill: red;
+  #test {
+    stroke-dasharray: 4000;
+    stroke-dashoffset: 4000;
+    stroke: green;
+    fill: none;
+    animation: lbc 5s linear forwards;
+  }
+  #line {
+    stroke-dasharray: 50,50,10;
+    stroke-dashoffset: 678;
+    stroke: red;
+    animation: lbc2 5s linear infinite;
+  }
+  @keyframes lbc {
+    to {
+      stroke-dashoffset: 0;
     }
-    .fancy {
-      fill: blue;
+  }
+  @keyframes lbc2 {
+    to {
+      stroke-dashoffset: 0;
     }
+  }
+  .lbc{
+    width:100px;
+    height:50px; 
+    background:#f00; 
+    margin:100px 0;
+    transition:all 1.5s;
+  }
+  .lbc:hover {
+    width:300px;
+    background:#ff0; 
+    transform: rotate(720deg);
+  }
   </style>
   <script>
-    window.onload= function () {
-      setTimeout(function () {
-        var str = `<circle cx="50" cy="50" r="5" fill="blue" />`
-        var svg = document.getElementById('svg')
-        svg.innerHTML += str
-      }, 5000)
-    }
+    // window.onload = function () {
+    //   var lbc = document.getElementById("line")
+    // var total = lbc.getTotalLength()
+    // console.log(total,"total")
+    // }
   </script>
 </head>
 <body>
   <div class="container">
-    <svg width="500" height="500">
-
-      <defs>
-    
-        <pattern id="dots" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-    
-          <circle fill="#bee9e8" cx="50" cy="50" r="35" />
-    
-        </pattern>
-    
-      </defs>
-    
-      <rect x="0" y="0" width="100%" height="100%" fill="url(#dots)" />
-    
-    </svg>
+    <div class="lbc"></div>
+    <!-- <svg width="500" height="500">
+      <path id="line" d="M30 30 l100 100" stroke-width="5"/>
+      <circle cx="30" cy="30" r="3" fill="blue" />
+      <circle cx="100" cy="100" r="3" fill="blue" />
+      <circle cx="130" cy="130" r="3" fill="blue" />
+      <path id="test" fill="none" d="M438,257.571l-65.047,14.164-5.389,78.276,49.445,125.795-30.848,15.162L331.556,378.1l-6.095-59.844L299.824,367.1l-6.11,122.141-37.833,1.219L258.314,361l36.628-107.481-9.764-62.287-26.864,17.1-22.554,8.056L233.9,224.21h18.31v42.75H214.369l18.313,86.712H206.66l-1.692,17.592,33.816,93.549-30.523,10.993L172.867,375.654l0.955-21.982H162.1L148.45,375.966l5.491,102.592H122.814L117.93,364.972l7.4-11.3H109.389l25.633-86.712,6.1-48.853-12.2,18.316L80.09,271.84,63,251.081,117.93,204.67l21.979-64.735L156.993,126.5l37.848-3.668,35.174,58.98,30.748-16.232,28.074-65.954,12.2-13.427,29.3-6.11,42.724,21.984,46.389,70.838-9.088,29.428,14.922-3.248Zm-70.436-98.093,3.726,51.375,9.887-2.156,4.1-29.677ZM297.388,80.313A35.64,35.64,0,1,1,333.01,44.671,35.639,35.639,0,0,1,297.388,80.313ZM167.374,117.954a28.7,28.7,0,1,1,28.682-28.7A28.7,28.7,0,0,1,167.374,117.954Z" />
+    </svg> -->
   </div>
 </body>
 </html>
