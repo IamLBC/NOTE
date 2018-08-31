@@ -149,7 +149,7 @@ preserveAspectRatio还有个单独使用的参数："none"。
 
   </svg>
   ```
-  x属性和y属性，表示文本区块基线（baseline 字下面的线）起点的横坐标和纵坐标。文字的样式可以用class或style属性指定。
+  x属性和y属性，表示文本区块基线（baseline 字下面的线）起点的横坐标和纵坐标。`text-anchor="middle"`让字居中。文字的样式可以用class或style属性指定。
 
 * `<use>`复制一个形状。
   ```html
