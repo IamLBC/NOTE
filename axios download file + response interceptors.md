@@ -1,5 +1,6 @@
 # axios download file + response interceptors
-```js
+
+``js
 import axios from 'axios'
 axios.interceptors.response.use(res=> {
   const download = res => {
