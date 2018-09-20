@@ -210,6 +210,57 @@ function accDiv(arg1, arg2) {
   }
 }
 ```
+
 ```js
 let reg = /^ \-? (?!0+(?:\.0+)?$) (?:[1-9]\d*|0) (?:\.\d{1,2})? $/ //小数点后最多保留两位,可以是负数 正则
+```
+
+```js
+// 方法一：利用JSON.stringify和JSON.parse
+// 这种方式进行深拷贝，只针对json数据这样的键值对有效
+// 对于函数等等反而无效，不好用，
+let swr = {
+    name:"lbc",
+    age:18,
+    pets:['lucky']
+}
+
+let swrcopy = JSON.parse(JSON.stringify(swr))
+
+// 方法二：
+function deepCopy(fromObj,toObj) { // 深拷贝函数
+  // 容错
+  if(fromObj === null) return null // 当fromObj为null
+  if(fromObj instanceof RegExp) return new RegExp(fromObj) // 当fromObj为正则
+  if(fromObj instanceof Date) return new Date(fromObj) // 当fromObj为Date
+
+  toObj = toObj || {}
+  
+  for(let key in fromObj){ // 遍历
+    if(typeof fromObj[key] !== 'object'){ // 是否为对象
+      toObj[key] = fromObj[key] // 如果为普通值，则直接赋值
+    }else{
+      if(fromObj[key] === null){
+        toObj[key] = null
+      }else{
+        toObj[key] = new fromObj[key].constructor // 如果为object，则new这个object指向的构造函数
+        deepCopy(fromObj[key],toObj[key]) // 递归          
+      }
+    }
+  }
+  return toObj
+}
+
+// 方法三：
+function deepCopy(obj) {
+  if(obj === null) return null
+  if(typeof obj !== 'object') return obj
+  if(obj instanceof RegExp) return new RegExp(obj)
+  if(obj instanceof Date) return new Date(obj)
+  let newObj = new obj.constructor
+  for(let key in obj){
+    newObj[key] = deepCopy(obj[key])
+  }
+  return newObj
+}
 ```
