@@ -113,3 +113,21 @@ const initial = arr => arr.slice(0, -1);
 const shuffle = arr => arr.sort(() => Math.random() - 0.5);
 // shuffle([1,2,3]) -> [2,3,1]
 ```
+
+```js
+//求交集
+function intersect(arr1,arr2) {
+  // 利用Set里的方法has，来判断new Set(arr2)中是否含有item，
+  // 如果含有，那么则是true，当为true时，filter函数则会保留该项
+  // 如果没有，则是false,当为false时，filter函数则不会保留该项
+  return arr1.filter(item => new Set(arr2).has(item))
+}
+
+console.log(intersect([1,2,3],[2,3,4,5])) // [2,3]
+复制代码求差集
+function difference(arr1,arr2){
+    return arr1.filter(item => !new Set(arr2).has(item))
+}
+
+console.log(difference([1,2,3],[2,3,4,5])) // [1]
+```
