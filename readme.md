@@ -9,5 +9,7 @@
 - [x] Table数据没有唯一标识，删除某一行
 - [x] regular-expression
 - [ ] animation
-- [ ] vue css穿透
-- [ ] postcss 
+- [ ] javascript设计模式
+- [ ] flex
+- [ ] 缩放长宽比
+- [ ] webpack
