@@ -21,7 +21,7 @@
 
 - `content: attr(href);`调用当前元素的属性值; `content: 'iam sb' attr(href);`
 
-## [line-height]
+## [line-height]
 
 - 向下继承
 

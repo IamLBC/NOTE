@@ -13,3 +13,4 @@
 - [ ] flex
 - [ ] 缩放长宽比
 - [ ] webpack
+- [ ] proxy 和 defineProperty 实现双向绑定 区别
