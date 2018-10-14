@@ -215,6 +215,8 @@ function accDiv(arg1, arg2) {
 let reg = /^ \-? (?!0+(?:\.0+)?$) (?:[1-9]\d*|0) (?:\.\d{1,2})? $/ //小数点后最多保留两位,可以是负数 正则
 ```
 
+## 深拷贝
+
 ```js
 // 方法一：利用JSON.stringify和JSON.parse
 // 这种方式进行深拷贝，只针对json数据这样的键值对有效
@@ -262,5 +264,105 @@ function deepCopy(obj) {
     newObj[key] = deepCopy(obj[key])
   }
   return newObj
+}
+```
+
+```js
+// 递归深度展开树结构数组
+export function deepOpenArray (arr) {
+  var temp = []
+  arr.forEach(item => {
+    temp.push({
+      tag: item.tag,
+      label: item.label,
+      id: item.id
+    })
+    if (item.children && item.children.length > 0) {
+      temp = temp.concat(deepOpenArray(item.children))
+    }
+  })
+  return temp
+}
+```
+
+```js
+// 获取所有标题，创建树结构
+export function getTree (content) {
+
+  // 找上一级
+  function findParent (tag, arr) {
+    return arr.filter(item => {
+      return item.tag === tag
+    }).slice(-1)[0].pid
+  }
+
+  let arr = content.match(/<h[1-6].*?>.*?<\/h[1-6]>/g) || []
+
+  arr = arr.map(item => item = item.replace(/<\/?(small|cite|ins|del|pre|span|a|hr|font|p|div|strike|u|address|center|pre|abbr|blockquote|dir|ul|ol|dl|li|ins|strong|em|sub|sup|b|s|i).*?>|<br\/?>/g, "").replace(/style=".*?"/g, ""))
+  
+  return arr.map((item, index, self) => { // 初始化结构
+    let obj = {
+      label: item,
+      id: index + 1,
+      tag: "h" + item[2],
+      rank: item[2] * 1
+    }
+    if (item[2] !== self[0][2]) {
+      obj = Object.assign(obj, {pid: 1}) // pid：parentId
+    }
+    return obj
+  })
+  // 生成关系链
+  .map((item, index, self) => {
+    if (item.pid) {
+      if (item.rank > self[index - 1].rank) {
+        item.pid = self[index -1].id
+      } else if (item.rank === self[index - 1].rank) {
+        item.pid = self[index - 1].pid
+      } else {
+        var temp = self.slice(0, index)
+        item.pid = findParent(item.tag, temp)
+      }
+    }
+    return item
+  })
+  // 生成树结构
+  .filter((father, i, self) => {
+    father.label = father.label.replace(/<h[1-6].*?>|<\/h[1-6]>/g, "").replace(/&nbsp;/g, " ")
+    //生成children
+    let branchArr = self.filter(child => {
+      return father.id === child.pid
+    })
+    if(branchArr.length > 0) {
+      father.children = branchArr
+    }
+    //返回没有pid的一级元素
+    return !father.pid
+  })
+}
+```
+
+```css
+<!-- el-tree 使其出现纵横向scroll -->
+.treeBox {
+  height: 626px;
+  overflow: auto;
+}
+
+.treeBox .el-tree > .el-tree-node { /* 设置第一级分支出现横向滚动 */
+  min-width: calc(100% -20px);
+  display: inline-block !important;
+}
+```
+
+## 点击生成的 el-tree 使Ueditor对应元素出现在视口
+
+```js
+anchor (tag, index) {
+  UE.getEditor('editor').focus() // IE下先聚焦
+  setTimeout(() => {
+    let el = this.editor.document.getElementsByTagName(tag)[index]
+    el.scrollIntoView()
+  }, 0)
 }
 ```

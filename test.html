@@ -7,38 +7,43 @@
   <title>Document</title>
   <style>
     .parent {
-      background: red;
+      display: flex;
+      height: 500px;
     }
-    a::after {
-      content: 'iam sb' attr(href);
-      margin-left: 10px;
+    .left {
+      width: 20%;
+      background: red;
+      height: 100%;
+      transition:all 0.5s ease-out 0s;
+    }
+    .left:hover {
+      width: 100px;
+    }
+    .right {
+      width: 50%;
+      background: gray;
+      height: 100%;
+    }
+    .right2 {
+      flex: 1;
+      background: blue;
+      height: 100%;
     }
   </style>
 </head>
 <body>
-  <div id="app">
-    <div>{{ message }}</div>
-    <div id="lbc"><button @click="test">click me</button></div>
-    <div class="test">{{ message }}</div>
-    <div class="test">{{ message }}</div>
+  <div class="parent">
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="right2"></div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script>
-    var app = new Vue({
-      el: '#app',
-      data: {
-        message: 'i am a sb'
-      },
-      methods: {
-        test () {
-          this.message = 'i not a sb'
-          console.log(this.message,"before")
-          this.$nextTick(() => {
-            console.log(this.message,"after")
-          })
-        }
-      }
-    })
-  </script>
+  <div class="font" style="width: 300px;">塑料袋解放路速度快放假了圣诞节塑料袋解放路速度快放假了圣诞节塑料袋解放路速度快放假了圣诞节</div>
+  
 </body>
+<script>
+  window.onload = function () {
+    var p = document.getElementsByTagName('p')[0]
+    p.innerHTML = 'articlearticle'
+  }
+</script>
 </html>
