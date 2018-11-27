@@ -8,9 +8,6 @@
 - [ ] svg  sprite
 - [x] Table数据没有唯一标识，删除某一行
 - [x] regular-expression
-- [ ] animation
 - [ ] javascript设计模式
-- [ ] flex
 - [ ] 缩放长宽比
-- [ ] webpack
 - [ ] proxy 和 defineProperty 实现双向绑定 区别
