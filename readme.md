@@ -6,7 +6,6 @@
 
 - [X] grid布局
 - [ ] svg  sprite
-- [x] Table数据没有唯一标识，删除某一行
 - [x] regular-expression
 - [ ] javascript设计模式
 - [ ] 缩放长宽比
