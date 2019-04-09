@@ -6,6 +6,30 @@ export const dateRules = (date) => {
 }
 ```
 
+echarts legend hightlight 源码修改
+```js
+/**
+ * @param  {module:echarts/data/List} data
+ * @param  {Object} payload
+ * @param  {string} state 'normal'|'emphasis'
+ */
+function toggleHighlight(data, payload, state) {
+    var dataIndex = queryDataIndex(data, payload);
+ 
+    if (dataIndex != null) {
+        each$1(normalizeToArray(dataIndex), function (dataIdx) {
+            elSetState(data.getItemGraphicEl(dataIdx), state);
+        });
+    }
+    else {
+        data.eachItemGraphicEl(function (el) {
+            elSetState(el, state);
+        });
+    }
+}
+```
+
+
 ```js
 // yyyy-MM-dd HH:mm:ss
 const formatTime = date => {
@@ -286,7 +310,7 @@ export function deepOpenArray (arr) {
 ```
 
 ```js
-// 获取所有标题，创建树结构
+// 获取文章中所有标题，创建树结构
 export function getTree (content) {
 
   // 找上一级

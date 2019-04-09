@@ -39,3 +39,5 @@ arr.splice(arr.indexOf(item2), 1) // success
 `splice`删除数组里某些元素,返回一个数组，会改变原数组
 `slice`返回数组里某些元素，返回值为数组,返回的是第二个参数的索引元素的前面一个元素
 ```
+
+## triggerEvent:true 雷达图文字绑定事件
