@@ -5,8 +5,10 @@
 
 
 - [X] grid布局
-- [ ] svg  sprite
 - [x] regular-expression
 - [ ] javascript设计模式
 - [ ] 缩放长宽比
 - [ ] proxy 和 defineProperty 实现双向绑定 区别
+- [ ] typescript
+- [ ] es6
+- [ ] react
