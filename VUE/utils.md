@@ -20,3 +20,22 @@ requireComponent.keys().forEach(fileName => {
   Vue.component(componentName, componentConfig.default || componentConfig)
 })
 ```
+
+```js
+export const tempStorage =  (store) => {
+    if (sessionStorage.getItem("store")) {
+        store.replaceState(
+            Object.assign(
+                {},
+                store.state,
+                JSON.parse(sessionStorage.getItem("store"))
+            )
+        );
+        sessionStorage.removeItem("store")
+    }
+
+    window.addEventListener("beforeunload", () => {
+        sessionStorage.setItem("store", JSON.stringify(store.state));
+    });
+}
+```
