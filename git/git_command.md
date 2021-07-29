@@ -55,12 +55,12 @@
     commit对象
         echo 'first commit' | git commit-tree treehash : 生成一个提交对象存到.git/objects
 
+    查看暂存区
+    git ls-files -s
+
     对以上对象的查询
         git cat-file -p hash       : 拿对应对象的内容
         git cat-file -t hash       : 拿对应对象的类型
-
-    查看暂存区
-    git ls-files -s
 
 
     .git/objects/06/e21bb0105e2de6c846725a9a7172f57dd1af96 workspae 项目的第一个版本(树对象)
@@ -107,7 +107,7 @@
     git log             查看提交日志
     git reflog          查看命令历史
     配别名 多个单词加双引号
-    git config --global alisas.lol "log --oneline --decorate --graph --all"
+    git config --global alias.lol "log --oneline --decorate --graph --all"
 
     git rm 文件名       删除工作目录中对应的文件 再将修改添加到暂存区
     git mv 原文件名 新文件名  将工作目录中的文件进行重命名 再将修改添加到暂存区
@@ -121,7 +121,7 @@
     git branch                    查看分支列表
     git branch -v                 查看当前分支指向的最后一次提交
     git branch name               在当前提交对象上创建新的分支
-    git branch name commithash    在指定的提交对象上创建新的分支
+    git branch name commithash    在指定的提交对象上创建新的分支 (版本穿梭-时光机)
     git checkout name             切换分支
     git branch -d name            删除空的分支 删除已经被合并的分支
     git branch -D name            强制删除分支
@@ -151,7 +151,7 @@
     工作区
         如何撤回自己在工作目录中的修改 : git checkout --filename
     暂存区
-        如何何撤回自己的暂存  : git reset HEAD filename
+        如何何撤回自己的暂存  : git reset HEAD filename  （简写：git reset filename）
     版本库
         如何撤回自己的提交    : git commit --amend
             1.注释写错了,重新给用户一次机会改注释
@@ -164,25 +164,29 @@
 
     git log    :
     git reflog : 主要是HEAD有变化 那么git reflog就会记录下来
-    三部曲
+    三部曲   所有的提交文件
         第一部： git rest --soft HEAD~  (--amend的实现)
             只动HEAD (带着分支一起移动)
-        第二部: git reset [--mixed]   HEAD~
+            git cat-file -p HEAD   看提交对象的树对象
+        第二部: git reset [--mixed] HEAD~   （比如撤回自己的暂存：git reset HEAD filename）
             动HEAD   (带着分支一起移动)
             动了暂存区
-        第三部:  git reset --hard  HEAD~
+        第三部:  git reset --hard  HEAD~    （执行命令之前，如果工作区有更改，数据将永远消失）
              动HEAD   (带着分支一起移动)
              动了暂存区
              动了工作目录
 
 ### 路径 reset
 
-    所有的路径reset都要省略第一步!!!
+    filename 就是路径
+
+    所有的路径reset都要省略第一步!!! （不会动HEAD,只会动暂存区）
         第一步是重置HEAD内容  我们知道HEAD本质指向一个分支 分支的本质是一个提交对象
         提交对象 指向一个树对象 树对象又很有可能指向多个git对象 一个git对象代表一个文件!!!
         HEAD可以代表一系列文件的状态!!!!
-    git reset [--mixed] commithash filename
+    git reset [--mixed] commithash filename   （只有mixed才能跟一个路径filename）
          用commithash中filename的内容重置暂存区
+         （简写：git reset filename）
 
 ### checkout 深入理解
 
@@ -200,6 +204,19 @@
                重置工作目录
           git checkout -- filename
               重置工作目录
+
+### 远程仓库
+
+```bash
+# 显示远程仓库使用的别名和url
+git remote -v
+
+# 添加一个新的远程仓库 你可以设置一个别名
+git remote add origin https://github.com/username/repositoryname.git
+
+# 查看某一个远程仓库的更多信息
+git remote show [remote-name]
+```
 
 ---
 
@@ -241,30 +258,6 @@ $ git merge --no-ff -m "description" <branchname>
 
 因为本次合并要创建一个新的 commit，所以加上`-m`参数，把 commit 描述写进去。合并分支时，加上`--no-ff`参数就可以用普通模式合并，能看出来曾经做过合并，包含作者和时间戳等信息，而`fast forward`合并就看不出来曾经做过合并。
 
-#### 保存工作现场
-
-```bash
-$ git stash
-```
-
-#### 查看工作现场
-
-```bash
-$ git stash list
-```
-
-#### 恢复工作现场
-
-```bash
-$ git stash pop
-```
-
-#### 查看远程库信息
-
-```bash
-$ git remote -v
-```
-
 #### 在本地创建和远程分支对应的分支
 
 ```bash
@@ -291,19 +284,14 @@ $ git push origin branch-name
 
 ```bash
 $ git pull
-```
 
-如果有冲突，要先处理冲突。`git pull`如果失败了，原因是没有指定本地 dev 分支与远程 origin/dev 分支的链接，根据提示，设置 dev 和 origin/dev 的链接：
+# 如果有冲突，要先处理冲突。
+# `git pull`如果失败了，原因是没有指定本地 dev 分支与远程 origin/dev 分支的链接，根据提示，设置 dev 和 origin/dev 的链接：
 
-```bash
 $ git branch --set-upstream branch-name origin/branch-name；
+
+# 再pull
 ```
-
-再 pull
-
-### 标签
-
-tag 就是一个让人容易记住的有意义的名字，它跟某个 commit 绑在一起。`<tagname>`是你要打标签的名字，比如：v1.0,默认是最新的`commit_id`,指定一个`commit_id`的话：`$ git tag <tagname> commit_id`
 
 #### 新建一个标签
 
@@ -323,46 +311,6 @@ $ git tag
 
 ```bash
 $ git tag -a <tagname> -m <description> <branchname> or commit_id
-```
-
-`git tag -a <tagname> -m "blablabla..."`可以指定标签信息。
-
-#### PGP 签名标签
-
-```bash
-$ git tag -s <tagname> -m <description> <branchname> or commit_id
-```
-
-`git tag -s <tagname> -m "blablabla..."`可以用 PGP 签名标签。
-
-#### 查看所有标签
-
-```bash
-$ git tag
-```
-
-#### 推送一个本地标签
-
-```bash
-$ git push origin <tagname>
-```
-
-#### 推送全部未推送过的本地标签
-
-```bash
-$ git push origin --tags
-```
-
-#### 删除一个本地标签
-
-```bash
-$ git tag -d <tagname>
-```
-
-#### 删除一个远程标签
-
-```bash
-$ git push origin :refs/tags/<tagname>
 ```
 
 #### 定义别名
