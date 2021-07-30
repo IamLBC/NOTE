@@ -215,10 +215,13 @@
     一个本地分支怎么去跟踪一个远程跟踪分支
         1. 当克隆的时候 会自动生成一个master本地分支(已经跟踪了对应的远程跟踪分支)
         2. 在新建其他分支时 可以指定想要跟踪的远程跟踪分支
-                git checkout -b 本地分支名 远程跟踪分支名
-                git checkout --track  远程跟踪分支名
+                ( git checkout -b 本地分支名 远程跟踪分支名 )
+                git checkout -b dev origin/dev
+                git checkout --track  origin/dev
         3. 将一个已经存在的本地分支 改成 一个跟踪分支
-                git branch -u 远程跟踪分支名
+                git branch -u origin/dev
+    查看所有设置的跟踪分支：
+        git branch -vv
 
 ### 团队协作
 
@@ -286,14 +289,6 @@ git remote show [remote-name]
 $ ssh-keygen -t rsa -C "youremail@example.com"
 ```
 
-#### 推送到远程仓库
-
-```bash
-$ git push -u origin master
-```
-
-`-u` 表示第一次推送 master 分支的所有内容，此后，每次本地提交后，只要有必要，就可以使用命令`git push origin master`推送最新修改。
-
 #### 普通模式合并分支
 
 ```bash
@@ -301,42 +296,6 @@ $ git merge --no-ff -m "description" <branchname>
 ```
 
 因为本次合并要创建一个新的 commit，所以加上`-m`参数，把 commit 描述写进去。合并分支时，加上`--no-ff`参数就可以用普通模式合并，能看出来曾经做过合并，包含作者和时间戳等信息，而`fast forward`合并就看不出来曾经做过合并。
-
-#### 在本地创建和远程分支对应的分支
-
-```bash
-$ git checkout -b branch-name origin/branch-name，
-```
-
-本地和远程分支的名称最好一致；
-
-#### 建立本地分支和远程分支的关联
-
-```bash
-git branch --set-upstream branch-name origin/branch-name
-git branch --u branch-name origin/branch-name 简写
-```
-
-#### 从本地推送分支
-
-```bash
-$ git push origin branch-name
-```
-
-如果推送失败，先用 git pull 抓取远程的新提交；
-
-#### 从远程抓取分支
-
-```bash
-$ git pull
-
-# 如果有冲突，要先处理冲突。
-# `git pull`如果失败了，原因是没有指定本地 dev 分支与远程 origin/dev 分支的链接，根据提示，设置 dev 和 origin/dev 的链接：
-
-$ git branch --set-upstream branch-name origin/branch-name；
-
-# 再pull
-```
 
 #### 定义别名
 
