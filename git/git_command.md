@@ -146,6 +146,11 @@
         git stash pop   : git stash apply +  git stash drop
         git stash list : 查看存储
 
+    拉取一个新远程分支：
+        git fetch origin
+        git checkout --track origin/name
+        git pull
+
 ## 后悔药
 
     工作区
@@ -257,8 +262,8 @@
     git本地操作会不会有冲突?
         典型合并的时候
     git远程协作的时候 会不会有冲突?
-        push
-        pull
+        push: pull -> fix -> add\commit -> push
+        pull: add\commit -> pull -> fix -> push
 
 ### 远程
 
@@ -271,6 +276,21 @@ git remote add origin https://github.com/username/repositoryname.git
 
 # 查看某一个远程仓库的更多信息
 git remote show [remote-name]
+```
+
+### 删除远程分支
+
+这几个命令一般联合使用
+
+```bash
+# 删除远程分支
+git push origin --delete serverfix
+
+# 列出仍在远程跟踪但是远程已被删除的无用分支
+git remote prune origin --dry-run
+
+# 清除上面命令列出来的远程跟踪
+git remote prune origin
 ```
 
 ---
