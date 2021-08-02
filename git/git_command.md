@@ -147,8 +147,8 @@
         git stash list : 查看存储
 
     拉取一个新远程分支：
-        git fetch origin
-        git checkout --track origin/name
+        git fetch origin2
+        git checkout --track origin2/branch-name
         git pull
 
 ## 后悔药
@@ -276,6 +276,13 @@ git remote add origin https://github.com/username/repositoryname.git
 
 # 查看某一个远程仓库的更多信息
 git remote show [remote-name]
+
+
+# 重命名
+git remote rename [remote-name]
+
+# 移除远程仓库
+git remote rm [remote-name]
 ```
 
 ### 删除远程分支
@@ -324,3 +331,5 @@ $ git config --global alias.st status
 $ git config --global alias.last 'log -1' 最后一次的提交
 $ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 ```
+
+### 项目有分支的时候，克隆下来 所有分支都已经建立了远程跟踪分支？
