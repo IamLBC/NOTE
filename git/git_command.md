@@ -332,4 +332,4 @@ $ git config --global alias.last 'log -1' 最后一次的提交
 $ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 ```
 
-### 项目有分支的时候，克隆下来 所有分支都已经建立了远程跟踪分支？
+### 项目有分支的时候，克隆下来 所有分支都已经建立了远程跟踪分支
