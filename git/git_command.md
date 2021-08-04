@@ -204,10 +204,10 @@
              reset --hard时是带着分支走
 
     checkout + 路径
-          git checkout commithash  filename
+          git checkout commithash  filename   (修改的内容将消失)
                重置暂存区
                重置工作目录
-          git checkout -- filename
+          git checkout -- filename            (修改的内容将消失)
               重置工作目录
 
 ### 远程分支 远程跟踪分支 本地分支
