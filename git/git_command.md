@@ -333,3 +333,14 @@ $ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Cre
 ```
 
 ### 项目有分支的时候，克隆下来 所有分支都已经建立了远程跟踪分支
+
+### fetch 和 pull 的区别
+
+    git fetch：相当于是从远程获取最新版本到本地，不会自动merge
+    git fetch origin master:tmp
+    git diff tmp
+    git merge tmp
+    或
+    git fetch origin master
+    git merge FETCH_HEAD
+    2. git pull：相当于是从远程获取最新版本并merge到本地
