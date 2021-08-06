@@ -61,7 +61,7 @@ sudo firewall-cmd --add-port=80/tcp --permanent
 firewall-cmd –reload
 ```
 
-## nginx 常用的命令和配置文件
+## 常用的命令
 
 ```bash
 # 版本号
@@ -162,3 +162,5 @@ http {
 
 }
 ```
+
+test --amend
