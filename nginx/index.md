@@ -5,7 +5,7 @@
 可以作为静态页面的 web 服务器，同时还支持 CGI 协议的动态语言，比如 perl、php
 等。但是不支持 java。Java 程序只能通过与 tomcat 配合完成。Nginx 专为性能优化而开发，
 性能是其最重要的考量,实现上非常注重效率 ，能经受高负载的考验,有报告表明能支持高
-达 50,000 个并发连接数。
+达 `50,000` 个并发连接数。
 
 - 正向代理
 - 反向代理
@@ -99,68 +99,59 @@ worker_rlimit_nofile 65535;
 # events 块涉及的指令主要影响 Nginx 服务器与用户的网络连接
 events {
   use epoll;
-  worker_connections 1024;  # 表示每个 work process 支持的最大连接数为 1024
+  worker_connections 1024;  # 表示每个 worker_processes 支持的最大连接数为 1024
 }
 
 # http 块
 http {
   # hppt 全局块
   include mime.types;
-  default_type application/octet-stream;
-  log_format main  '$remote_addr - $remote_user [$time_local] "$request" '
-               '$status $body_bytes_sent "$http_referer" '
-               '"$http_user_agent" $http_x_forwarded_for';
 
   server_names_hash_bucket_size 128;
   client_header_buffer_size 32k;
   large_client_header_buffers 4 32k;
   client_max_body_size 8m;
 
-  sendfile on;
-  tcp_nopush on;
-  keepalive_timeout 60;
-  tcp_nodelay on;
-  fastcgi_connect_timeout 300;
-  fastcgi_send_timeout 300;
-  fastcgi_read_timeout 300;
-  fastcgi_buffer_size 64k;
-  fastcgi_buffers 4 64k;
-  fastcgi_busy_buffers_size 128k;
-  fastcgi_temp_file_write_size 128k;
-  gzip on;
-  gzip_min_length 1k;
-  gzip_buffers 4 16k;
-  gzip_http_version 1.0;
-  gzip_comp_level 2;
-  gzip_types text/plain application/x-javascript text/css application/xml;
-  gzip_vary on;
-
  #下面是server虚拟主机的配置
  server {
+    # host文件配置 域名对应ip地址
     listen 80; # 监听端口
-    server_name localhost; # 域名
-    index index.html index.htm index.php;
-    root /usr/local/webserver/nginx/html; # 站点目录
-      location ~ .*\.(php|php5)?$
-    {
-      fastcgi_pass 127.0.0.1:9000;
-      fastcgi_index index.php;
-      include fastcgi.conf;
+    server_name 192.168.3.19; # 本机ip地址
+
+    location / {
+      root html;
+      proxy_pass http://127.0.0.1:8080  # tomcat 本机服务器地址
+      index index.html index.htm;
     }
-    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|ico)$
-    {
+
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|ico)$ {
       expires 30d;
-  # access_log off;
     }
-    location ~ .*\.(js|css)?$
-    {
+    location ~ .*\.(js|css)?$ {
       expires 15d;
-   # access_log off;
     }
-    access_log off;
   }
 
+  server {
+    listen 9001; # 监听端口
+    server_name 192.168.3.19; # 本机ip地址
+
+    location ~ /edu/ {
+      proxy_pass http://127.0.0.1:8080  # tomcat 本机服务器地址
+    }
+    location ~ /vod/ {
+      proxy_pass http://127.0.0.1:8081  # tomcat 本机服务器地址
+    }
+  }
 }
 ```
 
-test --amend
+## location 匹配
+
+    1、= ：用于不含正则表达式的 uri 前，要求请求字符串与 uri 严格匹配，如果匹配成功，就停止继续向下搜索并立即处理该请求。
+    2、~：用于表示 uri 包含正则表达式，并且区分大小写。
+    3、~*：用于表示 uri 包含正则表达式，并且不区分大小写。
+    4、^~：用于不含正则表达式的 uri 前，要求 Nginx 服务器找到标识 uri 和请求字
+    符串匹配度最高的 location 后，立即使用此 location 处理请求，而不再使用 location
+    块中的正则 uri 和请求字符串做匹配。
+    注意：如果 uri 包含正则表达式，则必须要有 ~ 或者 ~* 标识。
