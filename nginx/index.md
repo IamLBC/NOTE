@@ -255,7 +255,7 @@ http {
 1、原理
 
 ![原理](../resource/keepalived.jpg)
-![原理](https://github.com/IamLBC/NOTE/raw/master/resource/keepalived.png)
+![原理](https://github.com/IamLBC/NOTE/blob/master/resource/keepalived.png)
 
 2、配置高可用的准备工作
 
