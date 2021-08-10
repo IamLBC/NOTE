@@ -360,6 +360,6 @@ fi
 
   nginx 有一个 master，有四个 woker，每个 woker 支持最大的连接数 1024，支持的最大并发数是多少？
 
-  普通的静态访问最大并发数是： worker*connections * worker\*processes /2
+  普通的静态访问最大并发数是： `worker_connection * worker_processes / 2`
 
-  而如果是 HTTP 作 为反向代理来说，最大并发数量应该是 worker_connections \*worker_processes/4。
+  而如果是 HTTP 作 为反向代理来说，最大并发数量应该是 `worker_connections * worker_processes / 4`
