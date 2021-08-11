@@ -2,8 +2,10 @@
 
 ## 安装 webpack
 
-> 全局安装：cnpm i webpack webpack-cli -g  
-> 本地安装：cnpm i webpack webpack-cli -D
+```bash
+全局安装：cnpm i webpack webpack-cli -g
+本地安装：cnpm i webpack webpack-cli -D
+```
 
 ## 安装依赖
 
