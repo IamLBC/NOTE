@@ -285,7 +285,7 @@ module.exports = {
       }
     })
     new MiniCssExtractPlugin({
-      // 对输出的css文件进行重命名
+      // 单独提取css，对输出的css文件进行重命名
       filename: "css/built.css",
     }),
     // 压缩css
