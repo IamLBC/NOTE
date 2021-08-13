@@ -1,4 +1,15 @@
-# webpack
+# Webpack-study
+
+## 安装 webpack
+
+```bash
+全局安装：cnpm i webpack webpack-cli -g
+本地安装：cnpm i webpack webpack-cli -D
+```
+
+## 安装依赖
+
+> node_modules 安装在最外面，在最外层运行 `cnpm i` 本地下载安装 loader 和 plugins
 
 [ [基本使用](#基本使用) &bull; [开发环境配置](#开发环境配置) &bull; [生产环境配置](#生产环境配置) &bull; [优化环境配置](#优化环境配置) &bull; [配置详解](#配置详解) &bull; [webpack5-使用](#webpack5-使用) ]
 
