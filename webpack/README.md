@@ -93,6 +93,9 @@ module.exports = {
         // 处理html文件的img图片（img标签引入的图片资源，从而能被url-loader进行处理）
         test: /\.html$/,
         loader: "html-loader",
+        options: {
+          esModule: false,
+        },
       },
 
       {
@@ -300,6 +303,107 @@ module.exports = {
 ## 优化环境配置
 
 [优化配置](./4.webpack优化环境配置/17.优化配置介绍/README.MD)
+
+> 编译缓存 和 文件资源缓存
+
+    1.babel缓存（类似HMR，哪里的js改变就更新哪里，其他js还是用之前缓存的资源）
+      cacheDirectory: true
+      --> 让第二次打包构建速度更快
+
+    2.文件资源缓存
+      需要服务端支持：app.use(express.static('build', { maxAge: 1000 * 3600 }));
+      生成环境，文件名没变，就不会重新请求，而是再次用之前缓存的资源
+
+      2.1 hash: 每次wepack构建时会生成一个新的唯一的hash值。
+        问题: 因为js和css同时使用一个hash值。
+          如果重新打包，会导致所有缓存失效。资源全部重新请求服务器（可能我却只改动一个文件）
+
+      2.2 chunkhash：根据chunk生成的hash值。如果打包来源于同一个chunk，那么hash值就一样
+        问题: js和css的hash值还是一样的
+          打包来自同一个入口就同属于一个chunk也就同享一个hash值；（css文件是来自js文件引入的，hash一样，js变css也得变
+
+      2.3 contenthash: 根据文件的内容生成hash值。不同文件hash值一定不一样(文件内容修改，文件名里的hash才会改变)
+          （修改css文件内容，打包后的css文件名hash值就改变，而js文件没有改变hash值就不变，这样css和js缓存就会分开判断要不要重新请求资源）
+      --> 让代码上线运行缓存更好使用
+
+```js
+const { resolve } = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+// 定义nodejs环境变量：决定使用browserslist的哪个环境
+process.env.NODE_ENV = "production";
+
+module.exports = {
+  entry: "./src/js/index.js",
+  output: {
+    filename: "js/built.[contenthash:10].js",
+    path: resolve(__dirname, "build"),
+  },
+  module: {
+    rules: [
+      {
+        oneOf: [
+          {
+            test: /\.css$/,
+            use: [
+              MiniCssExtractPlugin.loader,
+              "css-loader",
+              {
+                // 还需要在package.json中定义browserslist
+                loader: "postcss-loader",
+                options: {
+                  ident: "postcss",
+                  plugins: () => [require("postcss-preset-env")()],
+                },
+              },
+            ],
+          },
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: "babel-loader",
+            options: {
+              presets: [
+                [
+                  "@babel/preset-env",
+                  {
+                    useBuiltIns: "usage",
+                    corejs: { version: 3 },
+                    targets: {
+                      chrome: "60",
+                      firefox: "50",
+                    },
+                  },
+                ],
+              ],
+              // 开启babel缓存
+              // 第二次构建时，会读取之前的缓存
+              cacheDirectory: true,
+            },
+          },
+        ],
+      },
+    ],
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "css/built.[contenthash:10].css",
+    }),
+    new OptimizeCssAssetsWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+      },
+    }),
+  ],
+  mode: "production",
+  devtool: "source-map",
+};
+```
 
 ## 配置详解
 

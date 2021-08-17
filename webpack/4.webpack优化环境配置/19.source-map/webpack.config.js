@@ -94,7 +94,7 @@ module.exports = {
 
     1.开发环境：速度快，调试更友好
       速度快(eval>inline>cheap>...)
-        eval-cheap-souce-map
+        eval-cheap-source-map
         eval-source-map
       调试更友好  
         souce-map
@@ -108,5 +108,5 @@ module.exports = {
       nosources-source-map 全部隐藏
       hidden-source-map 只隐藏源代码，会提示构建后代码错误信息
 
-      最终得出最好的两种 --> source-map / cheap-module-souce-map
+      最终得出最好的两种 --> source-map / cheap-module-source-map
 */

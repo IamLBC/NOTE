@@ -10,13 +10,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
       --> 让第二次打包构建速度更快
     2.文件资源缓存
     文件名不变，就不会重新请求，而是再次用之前缓存的资源
-      2.1hash: 每次wepack构建时会生成一个唯一的hash值。
+      2.1 hash: 每次wepack构建时会生成一个唯一的hash值。
         问题: 因为js和css同时使用一个hash值。
           如果重新打包，会导致所有缓存失效。（可能我却只改动一个文件）
-      2.2chunkhash：根据chunk生成的hash值。如果打包来源于同一个chunk，那么hash值就一样
+      2.2 chunkhash：根据chunk生成的hash值。如果打包来源于同一个chunk，那么hash值就一样
         问题: js和css的hash值还是一样的
           因为css是在js中被引入的，所以同属于一个chunk
-      2.3contenthash: 根据文件的内容生成hash值。不同文件hash值一定不一样(文件内容修改，文件名里的hash才会改变)
+      2.3 contenthash: 根据文件的内容生成hash值。不同文件hash值一定不一样(文件内容修改，文件名里的hash才会改变)
           （修改css文件内容，打包后的css文件名hash值就改变，而js文件没有改变hash值就不变，这样css和js缓存就会分开判断要不要重新请求资源）
       --> 让代码上线运行缓存更好使用
 */
