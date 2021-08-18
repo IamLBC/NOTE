@@ -307,18 +307,32 @@ module.exports = {
 
 [优化环境配置](./4.webpack优化环境配置/17.优化配置介绍/README.MD)
 
-> [编译缓存 和 文件资源缓存](./4.webpack优化环境配置/21.缓存/webpack.config.js)
+- [编译缓存 和 文件资源缓存](./4.webpack优化环境配置/21.缓存/webpack.config.js)
 
-> code-split &nbsp;&nbsp; [ [自动 split](./4.webpack优化环境配置/23.code-split/demo3/webpack.config.js) &bull; [手动 split](./4.webpack优化环境配置/23.code-split/demo3/src/js/index.js) ]
+- code-split &nbsp;&nbsp; [ [自动 split](./4.webpack优化环境配置/23.code-split/demo3/webpack.config.js) &bull; [手动 split](./4.webpack优化环境配置/23.code-split/demo3/src/js/index.js) ]
 
-> [懒加载 和 预加载](./4.webpack优化环境配置/24.lazy-loading/src/js/index.js)
+- [懒加载 和 预加载](./4.webpack优化环境配置/24.lazy-loading/src/js/index.js)
 
-> [多进程打包](./4.webpack优化环境配置/26.多进程打包/webpack.config.js)
+- [多进程打包](./4.webpack优化环境配置/26.多进程打包/webpack.config.js)
 
-> [externals](./4.webpack优化环境配置/27.externals/webpack.config.js)
+- [externals](./4.webpack优化环境配置/27.externals/webpack.config.js)
 
-> dll &nbsp;&nbsp; [ [webpack.config.js](./4.webpack优化环境配置/28.dll/webpack.config.js) &bull; [webpack.dll.js](./4.webpack优化环境配置/28.dll/webpack.dll.js) ]
+- dll &nbsp;&nbsp; [ [webpack.config.js](./4.webpack优化环境配置/28.dll/webpack.config.js) &bull; [webpack.dll.js](./4.webpack优化环境配置/28.dll/webpack.dll.js) ]
 
 ## 配置详解
 
+- [entry](5.webpack配置详解/29.entry/webpack.config.js)
+
+- [output](5.webpack配置详解/30.output/webpack.config.js)
+
+- [module](5.webpack配置详解/31.module/webpack.config.js)
+
+- [resolve](5.webpack配置详解/32.resolve/webpack.config.js)
+
+- [dev-server](5.webpack配置详解/33.dev-server/webpack.config.js)
+
+- [optimization](5.webpack配置详解/34.optimization/webpack.config.js)
+
 ## webpack5-使用
+
+- [webpack5](6.webpack5使用/README.MD)

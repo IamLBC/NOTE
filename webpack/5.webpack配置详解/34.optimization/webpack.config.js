@@ -66,6 +66,7 @@ module.exports = {
     },
     minimizer: [
       // 配置生产环境的压缩方案：js/css
+      // uglifyjs-webpack-plugin没维护了 webpack4.26之后用的TerserWebpackPlugin
       new TerserWebpackPlugin({
         // 开启缓存
         cache: true,
