@@ -307,9 +307,9 @@ module.exports = {
 
 [优化环境配置](./4.webpack优化环境配置/17.优化配置介绍/README.MD)
 
-> [编译缓存 和 文件资源缓存](./4.webpack优化环境配置/21.缓存\webpack.config.js)
+> [编译缓存 和 文件资源缓存](./4.webpack优化环境配置/21.缓存/webpack.config.js)
 
-> code-split &nbsp;&nbsp; [ [自动 split](./4.webpack优化环境配置/23.code-split\demo3\webpack.config.js) &bull; [手动 split](./4.webpack优化环境配置/23.code-split\demo3\src\js\index.js) ]
+> code-split &nbsp;&nbsp; [ [自动 split](./4.webpack优化环境配置/23.code-split/demo3/webpack.config.js) &bull; [手动 split](./4.webpack优化环境配置/23.code-split/demo3/src/js/index.js) ]
 
 > [懒加载 和 预加载](./4.webpack优化环境配置/24.lazy-loading/src/js/index.js)
 
