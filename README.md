@@ -6,7 +6,7 @@
 - [x] 缩放长宽比
 - [x] typescript
 - [x] es6
+- [x] webpack
+- [x] nginx
 - [x] react
 - [ ] nodejs
-
-this is for branch test.
