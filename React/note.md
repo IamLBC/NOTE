@@ -495,7 +495,7 @@ try {
 
   - 路由链接（携带参数）`<Link to="{{pathName: '/demo/detail', state: {name: 'lbc', age: 18}}}">详情</Link>`
   - 注册路由（无需声明）`<Route path="/demo/detail" component={detail}></Route>`
-  - 接收参数 `this.props.location.state`,没体现在地址栏，但刷新也可以保留参数。hash 路由刷新后会导致参数丢失
+  - 接收参数 `this.props.location.state`,没体现在地址栏，但刷新也可以保留参数。
   - BrowserRouter 刷新后可以保留参数，state 会保存在 history 对象中，不兼容 IE9 及以下版本
   - HashRouter 刷新后悔丢失参数，
 
@@ -604,8 +604,8 @@ export asyncAction (data, time) => {
   - 不得改写参数数据
   - 不能发送网络请求，输入和输出
   - 不能调用 Date.now()或 Math.random()等不纯方法
-- 从 react-redux 导入 Provider 组件
-- 从 react-redux 导入 connect 方法
+- 从 react-redux 导出 Provider 组件
+- 从 react-redux 导出 connect 方法
 -
 
 ```jsx
